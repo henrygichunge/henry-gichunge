@@ -3,6 +3,13 @@ import { Outlet, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
+import About from "./pages/About";
+import Education from "./pages/Education";
+import Projects from "./pages/Projects";
+import ProjectDetail from "./pages/ProjectDetail";
+import Insights from "./pages/Insights";
+import CV from "./pages/CV";
+import Contact from "./pages/Contact";
 import Placeholder from "./pages/Placeholder";
 
 function Layout() {
@@ -34,13 +41,13 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<Placeholder title="About" />} />
-        <Route path="/education" element={<Placeholder title="Education" />} />
-        <Route path="/projects" element={<Placeholder title="Projects" />} />
-        <Route path="/projects/:slug" element={<Placeholder title="Project" />} />
-        <Route path="/insights" element={<Placeholder title="Insights" />} />
-        <Route path="/cv" element={<Placeholder title="CV" />} />
-        <Route path="/contact" element={<Placeholder title="Contact" />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/education" element={<Education />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/:slug" element={<ProjectDetail />} />
+        <Route path="/insights" element={<Insights />} />
+        <Route path="/cv" element={<CV />} />
+        <Route path="/contact" element={<Contact />} />
         <Route
           path="*"
           element={<Placeholder title="Page not found" message="That page does not exist." />}

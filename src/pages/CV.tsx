@@ -1,0 +1,74 @@
+import { Download } from "lucide-react";
+import { Container, SectionHeading } from "../components/ui";
+import PageHeader from "../components/PageHeader";
+import Timeline from "../components/Timeline";
+import SkillGroups from "../components/SkillGroups";
+import { usePageMeta } from "../hooks/usePageMeta";
+import { cvContent, educationHistory, experience, skillGroups } from "../data/content";
+import { site } from "../data/site";
+
+export default function CV() {
+  usePageMeta("CV", "Curriculum vitae of Henry Mutuma Gichunge.");
+
+  return (
+    <>
+      <PageHeader eyebrow="Curriculum vitae" title={site.fullName} intro={cvContent.summary} />
+
+      <section className="border-b border-line py-8">
+        <Container className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          {cvContent.pdfUrl ? (
+            <a
+              href={cvContent.pdfUrl}
+              download
+              className="inline-flex items-center justify-center gap-2 bg-gold px-6 py-3 text-sm font-medium tracking-wide text-canvas transition-colors duration-300 hover:bg-ivory"
+            >
+              <Download size={16} /> Download CV (PDF)
+            </a>
+          ) : (
+            <>
+              <button
+                type="button"
+                disabled
+                className="inline-flex cursor-not-allowed items-center justify-center gap-2 border border-line px-6 py-3 text-sm tracking-wide text-mist opacity-60"
+              >
+                <Download size={16} /> Download CV (PDF)
+              </button>
+              <p className="text-sm text-mist">The PDF has not been uploaded yet.</p>
+            </>
+          )}
+        </Container>
+      </section>
+
+      <section className="py-20 sm:py-28">
+        <Container className="grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <SectionHeading eyebrow="Experience" title="Professional experience." />
+          </div>
+          <div className="lg:col-span-8">
+            <Timeline items={experience} />
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-line bg-surface/40 py-20 sm:py-28">
+        <Container className="grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <SectionHeading eyebrow="Education" title="Education and training." />
+          </div>
+          <div className="lg:col-span-8">
+            <Timeline items={educationHistory} />
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-line py-20 sm:py-28">
+        <Container>
+          <SectionHeading eyebrow="Skills" title="Skills." />
+          <div className="mt-12">
+            <SkillGroups groups={skillGroups} />
+          </div>
+        </Container>
+      </section>
+    </>
+  );
+}
