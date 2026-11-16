@@ -106,7 +106,7 @@ export const site = {
       summary:
         "A planned business management platform to help small businesses manage services, sales, payments and daily operations.",
     },
-  ] satisfies Project[],
+  ] as Project[],
 
   // PLACEHOLDER: no dates or employers are invented. Replace with real details.
   journey: [
