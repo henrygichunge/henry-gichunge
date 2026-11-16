@@ -9,6 +9,17 @@
       name="description"
       content="Henry Gichunge — educator, technology creator and entrepreneur. Ideas. Education. Innovation."
     />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme");
+          var theme = saved === "light" || saved === "dark" ? saved : "dark";
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

@@ -1,35 +1,47 @@
-import { useEffect } from "react";
+import { Suspense, lazy, useEffect, useRef } from "react";
 import { Outlet, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import PageLoader from "./components/PageLoader";
 import Home from "./pages/Home";
-import About from "./pages/About";
-import Education from "./pages/Education";
-import Projects from "./pages/Projects";
-import ProjectDetail from "./pages/ProjectDetail";
-import Insights from "./pages/Insights";
-import CV from "./pages/CV";
-import Contact from "./pages/Contact";
-import Placeholder from "./pages/Placeholder";
+
+const About = lazy(() => import("./pages/About"));
+const Education = lazy(() => import("./pages/Education"));
+const Projects = lazy(() => import("./pages/Projects"));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
+const Insights = lazy(() => import("./pages/Insights"));
+const CV = lazy(() => import("./pages/CV"));
+const Contact = lazy(() => import("./pages/Contact"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 function Layout() {
   const { pathname } = useLocation();
+  const mainRef = useRef<HTMLElement>(null);
+  const firstRender = useRef(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    // After navigating, move focus to the page so keyboard and screen reader users start at the top.
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    mainRef.current?.focus({ preventScroll: true });
   }, [pathname]);
 
   return (
     <div className="flex min-h-screen flex-col">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-gold focus:px-4 focus:py-2 focus:text-canvas"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-gold focus:px-4 focus:py-2 focus:text-on-gold"
       >
         Skip to content
       </a>
       <Navbar />
-      <main id="main" className="flex-1">
-        <Outlet />
+      <main id="main" ref={mainRef} tabIndex={-1} className="flex-1">
+        <Suspense fallback={<PageLoader />}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
     </div>
@@ -48,10 +60,7 @@ export default function App() {
         <Route path="/insights" element={<Insights />} />
         <Route path="/cv" element={<CV />} />
         <Route path="/contact" element={<Contact />} />
-        <Route
-          path="*"
-          element={<Placeholder title="Page not found" message="That page does not exist." />}
-        />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

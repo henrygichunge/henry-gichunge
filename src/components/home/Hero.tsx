@@ -4,6 +4,8 @@ import Portrait from "../Portrait";
 import { site } from "../../data/site";
 
 export default function Hero() {
+  const words = site.taglineWords;
+
   return (
     <section className="relative overflow-hidden bg-[radial-gradient(ellipse_at_top_right,rgba(200,169,107,0.10),transparent_60%)]">
       <Container className="grid items-center gap-14 py-16 sm:py-24 lg:grid-cols-12 lg:py-32">
@@ -16,13 +18,17 @@ export default function Hero() {
             Henry <span className="italic text-gold">Gichunge</span>
           </h1>
 
-          <p className="mt-8 flex flex-wrap items-center gap-x-3 font-serif text-2xl text-ivory/90 sm:text-3xl">
-            {site.taglineWords.map((word, i) => (
-              <span key={word} className="flex items-center gap-3">
+          <p className="mt-8 font-serif text-2xl text-ivory/90 sm:text-3xl">
+            {words.map((word, i) => (
+              <span key={word}>
                 {word}
-                <span className="text-gold" aria-hidden="true">
-                  {i < site.taglineWords.length - 1 ? "·" : "."}
-                </span>
+                {i < words.length - 1 ? (
+                  <span className="mx-3 text-gold" aria-hidden="true">
+                    ·
+                  </span>
+                ) : (
+                  <span className="text-gold">.</span>
+                )}
               </span>
             ))}
           </p>
@@ -39,7 +45,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="animate-fade-up px-2 lg:col-span-5" style={{ animationDelay: "0.2s" }}>
+        <div className="animate-fade-up lg:col-span-5" style={{ animationDelay: "0.2s" }}>
           <Portrait src={site.portraitSrc} alt={`Portrait of ${site.name}`} />
         </div>
       </Container>
