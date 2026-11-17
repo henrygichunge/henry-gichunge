@@ -2,14 +2,19 @@ import { ButtonLink, Container, SectionHeading } from "../components/ui";
 import PageHeader from "../components/PageHeader";
 import Timeline from "../components/Timeline";
 import SkillGroups from "../components/SkillGroups";
+import { TextSkeleton } from "../components/Skeleton";
 import { usePageMeta } from "../hooks/usePageMeta";
-import { aboutContent, educationHistory, experience, skillGroups } from "../data/content";
+import { useBackground, useSite } from "../hooks/useSiteContent";
+import { aboutContent } from "../data/content";
 
 export default function About() {
   usePageMeta(
     "About",
     "About Henry Gichunge: educator, technology creator and entrepreneur building practical digital solutions.",
   );
+
+  const { data: siteData } = useSite();
+  const { background } = useBackground();
 
   return (
     <>
@@ -25,9 +30,11 @@ export default function About() {
             <SectionHeading eyebrow="Biography" title="The short version." />
           </div>
           <div className="space-y-5 leading-relaxed text-mist lg:col-span-7">
-            {aboutContent.story.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+            {siteData ? (
+              siteData.profile.biography.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+            ) : (
+              <TextSkeleton lines={6} label="Loading biography" />
+            )}
           </div>
         </Container>
       </section>
@@ -35,9 +42,15 @@ export default function About() {
       <section className="border-t border-line bg-surface/40 py-20 sm:py-28">
         <Container>
           <p className="text-xs font-medium uppercase tracking-[0.25em] text-gold">Personal mission</p>
-          <blockquote className="mt-6 max-w-4xl font-serif text-3xl leading-snug sm:text-5xl">
-            {aboutContent.mission}
-          </blockquote>
+          {siteData ? (
+            siteData.profile.mission && (
+              <blockquote className="mt-6 max-w-4xl font-serif text-3xl leading-snug sm:text-5xl">
+                {siteData.profile.mission}
+              </blockquote>
+            )
+          ) : (
+            <TextSkeleton lines={2} label="Loading mission" className="mt-6 max-w-4xl" />
+          )}
 
           <div className="mt-14 grid gap-4 md:grid-cols-3">
             {aboutContent.principles.map((item) => (
@@ -56,7 +69,11 @@ export default function About() {
             <SectionHeading eyebrow="Experience" title="Professional background." />
           </div>
           <div className="lg:col-span-7">
-            <Timeline items={experience} />
+            {background ? (
+              <Timeline items={background.experience} />
+            ) : (
+              <TextSkeleton lines={5} label="Loading experience" />
+            )}
           </div>
         </Container>
       </section>
@@ -67,7 +84,11 @@ export default function About() {
             <SectionHeading eyebrow="Education" title="Qualifications and training." />
           </div>
           <div className="lg:col-span-7">
-            <Timeline items={educationHistory} />
+            {background ? (
+              <Timeline items={background.education} />
+            ) : (
+              <TextSkeleton lines={5} label="Loading education" />
+            )}
           </div>
         </Container>
       </section>
@@ -76,7 +97,11 @@ export default function About() {
         <Container>
           <SectionHeading eyebrow="Skills" title="What I bring." />
           <div className="mt-12">
-            <SkillGroups groups={skillGroups} />
+            {background ? (
+              <SkillGroups groups={background.skillGroups} />
+            ) : (
+              <TextSkeleton lines={4} label="Loading skills" />
+            )}
           </div>
         </Container>
       </section>

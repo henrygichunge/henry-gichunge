@@ -27,3 +27,49 @@ export interface ProjectItem {
 export interface ProjectsResponse {
   projects: ProjectItem[];
 }
+
+export interface ProfileData {
+  displayName: string;
+  fullName: string;
+  tagline: string;
+  intro: string;
+  biography: string[];
+  mission: string;
+  portraitUrl: string | null;
+}
+
+export interface ContactData {
+  email: string;
+  phone: string;
+  location: string;
+}
+
+export interface SocialLinkItem {
+  label: string;
+  url: string;
+}
+
+export interface SiteResponse {
+  profile: ProfileData;
+  contact: ContactData;
+  socials: SocialLinkItem[];
+}
+
+export interface TimelineEntry {
+  title: string;
+  organisation: string;
+  period: string;
+  description: string;
+  placeholder?: boolean;
+}
+
+export interface SkillGroupItem {
+  title: string;
+  items: string[];
+}
+
+export interface BackgroundResponse {
+  experience: TimelineEntry[];
+  education: TimelineEntry[];
+  skillGroups: SkillGroupItem[];
+}

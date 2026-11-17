@@ -3,16 +3,25 @@ import { Container, SectionHeading } from "../components/ui";
 import PageHeader from "../components/PageHeader";
 import Timeline from "../components/Timeline";
 import SkillGroups from "../components/SkillGroups";
+import { TextSkeleton } from "../components/Skeleton";
 import { usePageMeta } from "../hooks/usePageMeta";
-import { cvContent, educationHistory, experience, skillGroups } from "../data/content";
+import { useBackground, useSite } from "../hooks/useSiteContent";
+import { cvContent } from "../data/content";
 import { site } from "../data/site";
 
 export default function CV() {
   usePageMeta("CV", "Curriculum vitae of Henry Mutuma Gichunge.");
 
+  const { data: siteData } = useSite();
+  const { background } = useBackground();
+
   return (
     <>
-      <PageHeader eyebrow="Curriculum vitae" title={site.fullName} intro={cvContent.summary} />
+      <PageHeader
+        eyebrow="Curriculum vitae"
+        title={siteData?.profile.fullName ?? site.fullName}
+        intro={cvContent.summary}
+      />
 
       <section className="border-b border-line py-8">
         <Container className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -45,7 +54,11 @@ export default function CV() {
             <SectionHeading eyebrow="Experience" title="Professional experience." />
           </div>
           <div className="lg:col-span-8">
-            <Timeline items={experience} />
+            {background ? (
+              <Timeline items={background.experience} />
+            ) : (
+              <TextSkeleton lines={5} label="Loading experience" />
+            )}
           </div>
         </Container>
       </section>
@@ -56,7 +69,11 @@ export default function CV() {
             <SectionHeading eyebrow="Education" title="Education and training." />
           </div>
           <div className="lg:col-span-8">
-            <Timeline items={educationHistory} />
+            {background ? (
+              <Timeline items={background.education} />
+            ) : (
+              <TextSkeleton lines={5} label="Loading education" />
+            )}
           </div>
         </Container>
       </section>
@@ -65,7 +82,11 @@ export default function CV() {
         <Container>
           <SectionHeading eyebrow="Skills" title="Skills." />
           <div className="mt-12">
-            <SkillGroups groups={skillGroups} />
+            {background ? (
+              <SkillGroups groups={background.skillGroups} />
+            ) : (
+              <TextSkeleton lines={4} label="Loading skills" />
+            )}
           </div>
         </Container>
       </section>

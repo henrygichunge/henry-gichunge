@@ -1,10 +1,13 @@
 import { ArrowRight } from "lucide-react";
 import { ButtonLink, Container } from "../ui";
 import Portrait from "../Portrait";
+import { TextSkeleton } from "../Skeleton";
+import { useSite } from "../../hooks/useSiteContent";
 import { site } from "../../data/site";
 
 export default function Hero() {
   const words = site.taglineWords;
+  const { data } = useSite();
 
   return (
     <section className="relative overflow-hidden bg-[radial-gradient(ellipse_at_top_right,rgba(200,169,107,0.10),transparent_60%)]">
@@ -33,7 +36,13 @@ export default function Hero() {
             ))}
           </p>
 
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-mist">{site.intro}</p>
+          <div className="mt-8 max-w-xl">
+            {data ? (
+              <p className="text-lg leading-relaxed text-mist">{data.profile.intro}</p>
+            ) : (
+              <TextSkeleton lines={3} label="Loading introduction" />
+            )}
+          </div>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <ButtonLink to="/projects">
@@ -46,7 +55,7 @@ export default function Hero() {
         </div>
 
         <div className="animate-fade-up lg:col-span-5" style={{ animationDelay: "0.2s" }}>
-          <Portrait src={site.portraitSrc} alt={`Portrait of ${site.name}`} />
+          <Portrait src={data?.profile.portraitUrl ?? undefined} alt={`Portrait of ${site.name}`} />
         </div>
       </Container>
     </section>

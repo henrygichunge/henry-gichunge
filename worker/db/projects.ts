@@ -1,5 +1,6 @@
 import type { D1Database } from "../types";
 import type { ProjectItem, ProjectLinkItem, ProjectStatusLabel } from "../../shared/api";
+import { safeUrl } from "../lib/url";
 
 interface ProjectRow {
   id: number;
@@ -30,18 +31,6 @@ const STATUS_LABELS: Record<string, ProjectStatusLabel> = {
   planned: "Planned",
   status_to_confirm: "Status to confirm",
 };
-
-/** Allows only http(s) addresses, plus site paths such as /images/a.png when allowed. */
-function safeUrl(value: string | null, allowSitePath: boolean): string | null {
-  if (!value) return null;
-  if (allowSitePath && value.startsWith("/") && !value.startsWith("//")) return value;
-  try {
-    const url = new URL(value);
-    return url.protocol === "https:" || url.protocol === "http:" ? url.toString() : null;
-  } catch {
-    return null;
-  }
-}
 
 export async function listPublishedProjects(db: D1Database): Promise<ProjectItem[]> {
   const publishedIds = "SELECT id FROM projects WHERE state = 'published'";
