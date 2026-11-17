@@ -1,0 +1,19 @@
+name = "henry-gichunge"
+main = "worker/index.ts"
+compatibility_date = "2026-01-01"
+
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"
+run_worker_first = ["/api/*"]
+
+[observability]
+enabled = true
+
+[vars]
+ENVIRONMENT = "production"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "henrygichunge-db"
+database_id = "80fe192c-d6fd-44ad-a2dd-09c957d54a14"
