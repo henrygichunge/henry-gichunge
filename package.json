@@ -1,7 +1,7 @@
 {
   "name": "henrygichunge-site",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -9,12 +9,14 @@
     "preview": "vite preview --host"
   },
   "dependencies": {
+    "hono": "^4.10.0",
     "lucide-react": "^0.544.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.9.0"
   },
   "devDependencies": {
+    "@hono/node-server": "^1.19.0",
     "@tailwindcss/vite": "^4.1.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
