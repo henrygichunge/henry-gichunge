@@ -2,25 +2,27 @@ import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { ButtonLink, Container, SectionHeading } from "../components/ui";
 import PageHeader from "../components/PageHeader";
+import PageLoader from "../components/PageLoader";
 import StatusBadge from "../components/StatusBadge";
 import Placeholder from "./Placeholder";
 import { usePageMeta } from "../hooks/usePageMeta";
-import { projectDetails } from "../data/content";
-import { site } from "../data/site";
+import { useProjects } from "../hooks/useProjects";
 
 export default function ProjectDetail() {
   const { slug } = useParams();
-  const index = site.projects.findIndex((p) => p.slug === slug);
-  const project = index >= 0 ? site.projects[index] : undefined;
-  const details = slug ? projectDetails[slug] : undefined;
+  const { projects, loading } = useProjects();
 
-  usePageMeta(project ? project.name : "Project not found", project?.summary);
+  const index = projects.findIndex((p) => p.slug === slug);
+  const project = index >= 0 ? projects[index] : undefined;
 
+  usePageMeta(project ? project.name : loading ? "Project" : "Project not found", project?.summary);
+
+  if (loading) return <PageLoader />;
   if (!project) {
     return <Placeholder title="Project not found" message="That project does not exist." />;
   }
 
-  const next = site.projects[(index + 1) % site.projects.length];
+  const next = projects[(index + 1) % projects.length];
 
   return (
     <>
@@ -44,7 +46,9 @@ export default function ProjectDetail() {
             </div>
             <p className="mt-3 text-xs text-mist">Screenshots will be added when available.</p>
 
-            {details && <p className="mt-10 text-lg leading-relaxed text-mist">{details.overview}</p>}
+            {project.overview && (
+              <p className="mt-10 text-lg leading-relaxed text-mist">{project.overview}</p>
+            )}
           </div>
 
           <aside className="space-y-8 lg:col-span-5">
@@ -53,14 +57,16 @@ export default function ProjectDetail() {
               <div className="mt-3">
                 <StatusBadge status={project.status} />
               </div>
-              {details && <p className="mt-4 text-sm leading-relaxed text-mist">{details.statusNote}</p>}
+              {project.statusNote && (
+                <p className="mt-4 text-sm leading-relaxed text-mist">{project.statusNote}</p>
+              )}
             </div>
 
             <div className="border border-line bg-surface/40 p-6">
               <p className="text-xs uppercase tracking-widest text-mist">Links</p>
-              {details && details.links.length > 0 ? (
+              {project.links.length > 0 ? (
                 <ul className="mt-3 space-y-2">
-                  {details.links.map((link) => (
+                  {project.links.map((link) => (
                     <li key={link.url}>
                       <a
                         href={link.url}
@@ -81,12 +87,12 @@ export default function ProjectDetail() {
         </Container>
       </section>
 
-      {details && details.focusAreas.length > 0 && (
+      {project.focusAreas.length > 0 && (
         <section className="border-t border-line bg-surface/40 py-20 sm:py-28">
           <Container>
             <SectionHeading eyebrow="Focus areas" title="What it is built to do." />
             <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {details.focusAreas.map((area, i) => (
+              {project.focusAreas.map((area, i) => (
                 <li key={area} className="border border-line bg-canvas p-6">
                   <span className="font-serif text-lg text-gold-deep">{String(i + 1).padStart(2, "0")}</span>
                   <p className="mt-4 font-serif text-2xl">{area}</p>

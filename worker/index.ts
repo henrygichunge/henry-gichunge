@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { secureHeaders } from "hono/secure-headers";
 import health from "./routes/health";
+import projects from "./routes/projects";
 import type { AppEnv } from "./types";
 
 const app = new Hono<AppEnv>();
@@ -9,6 +10,7 @@ const app = new Hono<AppEnv>();
 app.use("/api/*", secureHeaders());
 
 app.route("/api/health", health);
+app.route("/api/projects", projects);
 
 function errorResponse(status: number, code: string, message: string): Response {
   return new Response(JSON.stringify({ error: { code, message } }), {

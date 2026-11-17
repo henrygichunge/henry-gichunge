@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { Container, SectionHeading } from "../components/ui";
 import PageHeader from "../components/PageHeader";
 import StatusBadge from "../components/StatusBadge";
+import { CardGridSkeleton } from "../components/Skeleton";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { useProjects } from "../hooks/useProjects";
 import { educationContent } from "../data/content";
-import { site } from "../data/site";
 
 export default function Education() {
   usePageMeta(
@@ -13,9 +14,8 @@ export default function Education() {
     "Henry Gichunge's teaching background, educational interests and education technology work.",
   );
 
-  const relatedProjects = site.projects.filter((p) =>
-    educationContent.relatedProjectSlugs.includes(p.slug),
-  );
+  const { projects, loading } = useProjects();
+  const related = projects.filter((p) => educationContent.relatedProjectSlugs.includes(p.slug));
 
   return (
     <>
@@ -67,24 +67,33 @@ export default function Education() {
             title="Where teaching meets software."
             intro={educationContent.edtechIntro}
           />
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {relatedProjects.map((project) => (
-              <Link
-                key={project.slug}
-                to={`/projects/${project.slug}`}
-                className="group border border-line bg-surface/40 p-7 transition-colors duration-300 hover:border-gold/60"
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-xs uppercase tracking-widest text-mist">{project.category}</span>
-                  <StatusBadge status={project.status} />
-                </div>
-                <h3 className="mt-5 text-3xl">{project.name}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-mist">{project.summary}</p>
-                <span className="mt-6 inline-flex items-center gap-2 text-sm text-gold">
-                  Learn more <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                </span>
-              </Link>
-            ))}
+          <div className="mt-12">
+            {loading ? (
+              <CardGridSkeleton count={2} label="Loading projects" />
+            ) : related.length === 0 ? (
+              <p className="text-mist">Related projects will appear here.</p>
+            ) : (
+              <div className="grid gap-6 md:grid-cols-2">
+                {related.map((project) => (
+                  <Link
+                    key={project.slug}
+                    to={`/projects/${project.slug}`}
+                    className="group border border-line bg-surface/40 p-7 transition-colors duration-300 hover:border-gold/60"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-xs uppercase tracking-widest text-mist">{project.category}</span>
+                      <StatusBadge status={project.status} />
+                    </div>
+                    <h3 className="mt-5 text-3xl">{project.name}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-mist">{project.summary}</p>
+                    <span className="mt-6 inline-flex items-center gap-2 text-sm text-gold">
+                      Learn more{" "}
+                      <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </Container>
       </section>
