@@ -3,7 +3,7 @@
 Database name: `henrygichunge-db`
 
 ## Migrations (schema)
-Applied in order, once each. Run them in the D1 console in the Cloudflare dashboard.
+Applied in order, once each, by pasting into the D1 console in the Cloudflare dashboard.
 Never edit a migration that has been applied: add a new numbered file instead.
 
 | File | Contents | Applied |
@@ -19,10 +19,14 @@ Never edit a migration that has been applied: add a new numbered file instead.
 
 Tick the boxes (edit this file) as you apply each one.
 
+## Rules for SQL files (important)
+The D1 console input is a single line, so pasted line breaks are lost.
+- Never use `--` comments in these files: one would comment out everything after it.
+- Use `char(10)` for line breaks inside text values.
+
 ## Why manual?
 Wrangler's local runtime does not run on Android/Termux, so migrations are applied by hand
-in the dashboard. Because of that, D1's automatic migration history is not recorded:
-this table is the record.
+in the dashboard. D1's automatic migration history is therefore not recorded: this table is the record.
 
 ## Later
 - Batch 09: media_assets table

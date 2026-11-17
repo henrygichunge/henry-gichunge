@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS articles (
 
 CREATE INDEX IF NOT EXISTS idx_articles_state_date ON articles (state, published_at);
 
--- Experience and education entries share one table, told apart by `kind`.
 CREATE TABLE IF NOT EXISTS timeline_items (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   kind TEXT NOT NULL CHECK (kind IN ('experience', 'education')),

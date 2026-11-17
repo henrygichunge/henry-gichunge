@@ -1,4 +1,3 @@
--- Single-row profile. The CHECK keeps it to exactly one row (id = 1).
 CREATE TABLE IF NOT EXISTS site_profile (
   id INTEGER PRIMARY KEY CHECK (id = 1),
   display_name TEXT NOT NULL,
@@ -11,7 +10,6 @@ CREATE TABLE IF NOT EXISTS site_profile (
   updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
 );
 
--- Simple key/value settings (contact details and similar).
 CREATE TABLE IF NOT EXISTS site_settings (
   key TEXT PRIMARY KEY,
   value TEXT NOT NULL DEFAULT '',

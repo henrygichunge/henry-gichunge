@@ -1,6 +1,3 @@
--- Starter content. Safe to run twice: existing rows are skipped.
--- The biography, mission and intro are draft wording: edit them later in the admin dashboard.
-
 INSERT OR IGNORE INTO site_profile (id, display_name, full_name, tagline, intro, biography, mission)
 VALUES (
   1,
@@ -8,9 +5,7 @@ VALUES (
   'Henry Mutuma Gichunge',
   'Ideas. Education. Innovation.',
   'I teach, build software and develop practical digital solutions that make education and everyday business work better.',
-  'Henry Mutuma Gichunge works where teaching and technology meet. Experience in the classroom shows him what teachers and learners actually need; software development lets him build it.
-
-His current work focuses on education technology, including MathOS for assessment and learner performance, BrightMe for learning and revision, and ManageMe OS, a planned platform for small business operations.',
+  'Henry Mutuma Gichunge works where teaching and technology meet. Experience in the classroom shows him what teachers and learners actually need; software development lets him build it.' || char(10) || char(10) || 'His current work focuses on education technology, including MathOS for assessment and learner performance, BrightMe for learning and revision, and ManageMe OS, a planned platform for small business operations.',
   'To use teaching experience and practical software to make education and everyday work simpler, fairer and more effective.'
 );
 
