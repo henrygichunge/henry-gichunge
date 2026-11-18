@@ -14,6 +14,9 @@ const ArticleDetail = lazy(() => import("./pages/ArticleDetail"));
 const CV = lazy(() => import("./pages/CV"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const AdminShell = lazy(() => import("./pages/admin/AdminShell"));
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const AdminHome = lazy(() => import("./pages/admin/AdminHome"));
 
 function Layout() {
   const { pathname } = useLocation();
@@ -52,6 +55,18 @@ function Layout() {
 export default function App() {
   return (
     <Routes>
+      <Route
+        path="/admin"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <AdminShell />
+          </Suspense>
+        }
+      >
+        <Route index element={<AdminHome />} />
+        <Route path="login" element={<AdminLogin />} />
+      </Route>
+
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

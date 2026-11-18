@@ -17,11 +17,18 @@ export interface D1Database {
 
 /**
  * Cloudflare bindings available to the Worker.
- * DB is missing when running locally on a phone, so it is optional.
+ * DB and the admin secrets are missing when running locally on a phone, so they are optional.
  */
 export interface Bindings {
   ENVIRONMENT?: string;
   DB?: D1Database;
+  /** Secret: the one email address allowed to sign in. */
+  ADMIN_EMAIL?: string;
+  /** Secret: pbkdf2-sha256$iterations$salt$hash, made with scripts/hash-password.mjs. */
+  ADMIN_PASSWORD_HASH?: string;
 }
 
-export type AppEnv = { Bindings: Bindings };
+export type AppEnv = {
+  Bindings: Bindings;
+  Variables: { adminEmail: string };
+};
