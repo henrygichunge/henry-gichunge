@@ -73,3 +73,26 @@ export interface BackgroundResponse {
   education: TimelineEntry[];
   skillGroups: SkillGroupItem[];
 }
+
+export interface ArticleSummary {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  coverImage: string | null;
+  publishedAt: string | null;
+}
+
+export interface ArticleDetail extends ArticleSummary {
+  body: string[];
+  seoTitle: string | null;
+  seoDescription: string | null;
+}
+
+export interface ArticlesResponse {
+  articles: ArticleSummary[];
+}
+
+export interface ArticleResponse {
+  article: ArticleDetail;
+}

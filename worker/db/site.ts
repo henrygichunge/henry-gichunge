@@ -1,6 +1,7 @@
 import type { D1Database } from "../types";
 import type { SiteResponse, SocialLinkItem } from "../../shared/api";
 import { safeUrl } from "../lib/url";
+import { paragraphs } from "../lib/text";
 
 interface ProfileRow {
   display_name: string;
@@ -20,14 +21,6 @@ interface SettingRow {
 interface SocialRow {
   label: string;
   url: string;
-}
-
-/** Splits text into paragraphs at blank lines. */
-function paragraphs(text: string): string[] {
-  return text
-    .split(/\n\s*\n/)
-    .map((p) => p.trim())
-    .filter((p) => p.length > 0);
 }
 
 /** Returns null when the profile row has not been created yet. */

@@ -10,6 +10,7 @@ const Education = lazy(() => import("./pages/Education"));
 const Projects = lazy(() => import("./pages/Projects"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const Insights = lazy(() => import("./pages/Insights"));
+const ArticleDetail = lazy(() => import("./pages/ArticleDetail"));
 const CV = lazy(() => import("./pages/CV"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -58,6 +59,7 @@ export default function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/insights" element={<Insights />} />
+        <Route path="/insights/:slug" element={<ArticleDetail />} />
         <Route path="/cv" element={<CV />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
