@@ -1,9 +1,17 @@
 import { Suspense, useEffect } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { Monogram } from "../../components/Logo";
 import PageLoader from "../../components/PageLoader";
 
+const links = [
+  { to: "/admin", label: "Dashboard", end: true },
+  { to: "/admin/profile", label: "Profile", end: false },
+];
+
 export default function AdminShell() {
+  const { pathname } = useLocation();
+  const showNav = pathname !== "/admin/login";
+
   // Keep admin pages out of search engines.
   useEffect(() => {
     const meta = document.createElement("meta");
@@ -32,6 +40,28 @@ export default function AdminShell() {
             View site
           </Link>
         </div>
+
+        {showNav && (
+          <nav aria-label="Admin sections" className="mx-auto max-w-3xl px-5 sm:px-8">
+            <ul className="flex gap-6 overflow-x-auto pb-3 text-sm">
+              {links.map((item) => (
+                <li key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    end={item.end}
+                    className={({ isActive }) =>
+                      `whitespace-nowrap transition-colors hover:text-gold ${
+                        isActive ? "text-gold" : "text-ivory/80"
+                      }`
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
       </header>
       <main id="main">
         <Suspense fallback={<PageLoader />}>

@@ -13,6 +13,7 @@ import {
   isLockedOut,
   recordFailure,
 } from "../auth/store";
+import adminProfile from "./adminProfile";
 import type { AppEnv } from "../types";
 
 const admin = new Hono<AppEnv>();
@@ -117,5 +118,7 @@ admin.post("/logout", async (c) => {
 admin.use("*", requireAdmin);
 
 admin.get("/me", (c) => c.json({ email: c.get("adminEmail") }));
+
+admin.route("/", adminProfile);
 
 export default admin;
