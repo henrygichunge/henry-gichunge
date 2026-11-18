@@ -35,7 +35,8 @@ async function readError(response: Response): Promise<string> {
   }
 }
 
-async function request<T>(
+/** Calls the admin API. Never throws: failures come back as { ok: false }. */
+export async function request<T>(
   path: string,
   init?: { method: string; body?: string },
 ): Promise<ApiResult<T>> {

@@ -4,8 +4,20 @@ import { Container } from "../../components/ui";
 import PageLoader from "../../components/PageLoader";
 import { useAdminSession } from "../../lib/admin";
 
+const manage = [
+  {
+    to: "/admin/profile",
+    title: "Profile and contact",
+    text: "Biography, intro, mission, contact details and social links",
+  },
+  {
+    to: "/admin/projects",
+    title: "Projects",
+    text: "Add, edit, publish, reorder and archive projects",
+  },
+];
+
 const soon = [
-  "Projects",
   "Articles",
   "Experience, education and skills",
   "Images and CV upload",
@@ -40,20 +52,20 @@ export default function AdminHome() {
 
       <h2 className="mt-12 text-2xl">Manage</h2>
       <ul className="mt-4 space-y-3">
-        <li>
-          <Link
-            to="/admin/profile"
-            className="group flex items-center justify-between border border-line bg-surface/40 p-5 transition-colors duration-300 hover:border-gold/60"
-          >
-            <span>
-              <span className="block font-serif text-2xl">Profile and contact</span>
-              <span className="mt-1 block text-sm text-mist">
-                Biography, intro, mission, contact details and social links
+        {manage.map((item) => (
+          <li key={item.to}>
+            <Link
+              to={item.to}
+              className="group flex items-center justify-between border border-line bg-surface/40 p-5 transition-colors duration-300 hover:border-gold/60"
+            >
+              <span>
+                <span className="block font-serif text-2xl">{item.title}</span>
+                <span className="mt-1 block text-sm text-mist">{item.text}</span>
               </span>
-            </span>
-            <ArrowRight size={18} className="text-gold transition-transform group-hover:translate-x-1" />
-          </Link>
-        </li>
+              <ArrowRight size={18} className="text-gold transition-transform group-hover:translate-x-1" />
+            </Link>
+          </li>
+        ))}
         {soon.map((name) => (
           <li
             key={name}

@@ -18,6 +18,8 @@ const AdminShell = lazy(() => import("./pages/admin/AdminShell"));
 const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
 const AdminHome = lazy(() => import("./pages/admin/AdminHome"));
 const AdminProfile = lazy(() => import("./pages/admin/AdminProfile"));
+const AdminProjects = lazy(() => import("./pages/admin/AdminProjects"));
+const AdminProjectEdit = lazy(() => import("./pages/admin/AdminProjectEdit"));
 
 function Layout() {
   const { pathname } = useLocation();
@@ -67,6 +69,9 @@ export default function App() {
         <Route index element={<AdminHome />} />
         <Route path="login" element={<AdminLogin />} />
         <Route path="profile" element={<AdminProfile />} />
+        <Route path="projects" element={<AdminProjects />} />
+        <Route path="projects/new" element={<AdminProjectEdit />} />
+        <Route path="projects/:id" element={<AdminProjectEdit />} />
       </Route>
 
       <Route element={<Layout />}>
