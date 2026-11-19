@@ -7,6 +7,7 @@ const links = [
   { to: "/admin", label: "Dashboard", end: true },
   { to: "/admin/profile", label: "Profile", end: false },
   { to: "/admin/projects", label: "Projects", end: false },
+  { to: "/admin/articles", label: "Articles", end: false },
 ];
 
 export default function AdminShell() {

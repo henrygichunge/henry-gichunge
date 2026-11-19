@@ -20,6 +20,8 @@ const AdminHome = lazy(() => import("./pages/admin/AdminHome"));
 const AdminProfile = lazy(() => import("./pages/admin/AdminProfile"));
 const AdminProjects = lazy(() => import("./pages/admin/AdminProjects"));
 const AdminProjectEdit = lazy(() => import("./pages/admin/AdminProjectEdit"));
+const AdminArticles = lazy(() => import("./pages/admin/AdminArticles"));
+const AdminArticleEdit = lazy(() => import("./pages/admin/AdminArticleEdit"));
 
 function Layout() {
   const { pathname } = useLocation();
@@ -72,6 +74,9 @@ export default function App() {
         <Route path="projects" element={<AdminProjects />} />
         <Route path="projects/new" element={<AdminProjectEdit />} />
         <Route path="projects/:id" element={<AdminProjectEdit />} />
+        <Route path="articles" element={<AdminArticles />} />
+        <Route path="articles/new" element={<AdminArticleEdit />} />
+        <Route path="articles/:id" element={<AdminArticleEdit />} />
       </Route>
 
       <Route element={<Layout />}>

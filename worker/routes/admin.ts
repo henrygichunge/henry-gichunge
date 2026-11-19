@@ -15,6 +15,7 @@ import {
 } from "../auth/store";
 import adminProfile from "./adminProfile";
 import adminProjects from "./adminProjects";
+import adminArticles from "./adminArticles";
 import type { AppEnv } from "../types";
 
 const admin = new Hono<AppEnv>();
@@ -122,5 +123,6 @@ admin.get("/me", (c) => c.json({ email: c.get("adminEmail") }));
 
 admin.route("/", adminProfile);
 admin.route("/", adminProjects);
+admin.route("/", adminArticles);
 
 export default admin;

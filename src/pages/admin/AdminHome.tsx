@@ -15,10 +15,14 @@ const manage = [
     title: "Projects",
     text: "Add, edit, publish, reorder and archive projects",
   },
+  {
+    to: "/admin/articles",
+    title: "Articles",
+    text: "Write, edit, publish and archive articles",
+  },
 ];
 
 const soon = [
-  "Articles",
   "Experience, education and skills",
   "Images and CV upload",
   "Contact messages",
