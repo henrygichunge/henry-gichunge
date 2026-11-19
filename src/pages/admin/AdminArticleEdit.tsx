@@ -3,6 +3,7 @@ import { Link, Navigate, useLocation, useNavigate, useParams } from "react-route
 import { Container } from "../../components/ui";
 import PageLoader from "../../components/PageLoader";
 import Field from "../../components/admin/Field";
+import ImageUpload from "../../components/admin/ImageUpload";
 import StateSelect from "../../components/admin/StateSelect";
 import {
   createArticle,
@@ -247,11 +248,9 @@ function ArticleEditor({ id }: { id: string | undefined }) {
             maxLength={30000}
             onChange={(v) => update("body", v)}
           />
-          <Field
+          <ImageUpload
             id="article-cover"
-            label="Cover image address"
-            type="url"
-            hint="A web address starting with https://, or leave empty. Image uploads come in a later batch."
+            label="Cover image"
             value={values.coverImageUrl}
             maxLength={500}
             onChange={(v) => update("coverImageUrl", v)}

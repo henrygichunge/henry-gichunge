@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { Container } from "../../components/ui";
 import PageLoader from "../../components/PageLoader";
 import Field from "../../components/admin/Field";
+import ImageUpload from "../../components/admin/ImageUpload";
 import {
   getProfile,
   saveContact,
@@ -50,7 +51,9 @@ function SaveBar({ status }: { status: Status }) {
         {status.kind === "saving" ? "Saving…" : "Save"}
       </button>
       <p role="status" className="text-sm">
-        {status.kind === "saved" && <span className="text-gold">Saved. The public site updates within a minute or two.</span>}
+        {status.kind === "saved" && (
+          <span className="text-gold">Saved. The public site updates within a minute or two.</span>
+        )}
         {status.kind === "error" && <span className="text-gold">{status.message}</span>}
       </p>
     </div>
@@ -136,10 +139,7 @@ export default function AdminProfile() {
           onSubmit={(e) => void submit(e, () => saveProfile(profile), setProfileStatus)}
           aria-label="Website profile"
         >
-          <Card
-            title="Website profile"
-            intro="Shown on the homepage, About page and CV page."
-          >
+          <Card title="Website profile" intro="Shown on the homepage, About page and CV page.">
             <Field
               id="profile-full-name"
               label="Full name"
@@ -178,11 +178,9 @@ export default function AdminProfile() {
               maxLength={500}
               onChange={(v) => setProfile((p) => ({ ...p, mission: v }))}
             />
-            <Field
+            <ImageUpload
               id="profile-portrait"
-              label="Portrait address"
-              type="url"
-              hint="A web address starting with https://, or leave empty for the placeholder. Photo uploads come in a later batch."
+              label="Portrait"
               value={profile.portraitUrl}
               maxLength={500}
               onChange={(v) => setProfile((p) => ({ ...p, portraitUrl: v }))}

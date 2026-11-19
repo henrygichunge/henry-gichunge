@@ -19,7 +19,7 @@ export interface D1Database {
 
 /**
  * Cloudflare bindings available to the Worker.
- * DB and the admin secrets are missing when running locally on a phone, so they are optional.
+ * DB and the secrets are missing when running locally on a phone, so they are optional.
  */
 export interface Bindings {
   ENVIRONMENT?: string;
@@ -28,6 +28,10 @@ export interface Bindings {
   ADMIN_EMAIL?: string;
   /** Secret: pbkdf2-sha256$iterations$salt$hash, made with scripts/hash-password.mjs. */
   ADMIN_PASSWORD_HASH?: string;
+  /** Secrets for image uploads: from the Cloudinary console, set in the Cloudflare dashboard. */
+  CLOUDINARY_CLOUD_NAME?: string;
+  CLOUDINARY_API_KEY?: string;
+  CLOUDINARY_API_SECRET?: string;
 }
 
 export type AppEnv = {

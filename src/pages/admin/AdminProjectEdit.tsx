@@ -3,6 +3,7 @@ import { Link, Navigate, useLocation, useNavigate, useParams } from "react-route
 import { Container } from "../../components/ui";
 import PageLoader from "../../components/PageLoader";
 import Field from "../../components/admin/Field";
+import ImageUpload from "../../components/admin/ImageUpload";
 import StateSelect from "../../components/admin/StateSelect";
 import {
   STATUS_OPTIONS,
@@ -280,11 +281,9 @@ function ProjectEditor({ id }: { id: string | undefined }) {
             maxLength={500}
             onChange={(v) => update("statusNote", v)}
           />
-          <Field
+          <ImageUpload
             id="project-image"
-            label="Screenshot address"
-            type="url"
-            hint="A web address starting with https://, or leave empty. Image uploads come in a later batch."
+            label="Screenshot"
             value={values.imageUrl}
             maxLength={500}
             onChange={(v) => update("imageUrl", v)}

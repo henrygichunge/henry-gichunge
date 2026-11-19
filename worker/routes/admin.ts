@@ -17,6 +17,7 @@ import adminProfile from "./adminProfile";
 import adminProjects from "./adminProjects";
 import adminArticles from "./adminArticles";
 import adminBackground from "./adminBackground";
+import adminMedia from "./adminMedia";
 import type { AppEnv } from "../types";
 
 const admin = new Hono<AppEnv>();
@@ -126,5 +127,6 @@ admin.route("/", adminProfile);
 admin.route("/", adminProjects);
 admin.route("/", adminArticles);
 admin.route("/", adminBackground);
+admin.route("/", adminMedia);
 
 export default admin;
