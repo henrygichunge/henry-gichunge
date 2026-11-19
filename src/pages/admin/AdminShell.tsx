@@ -8,6 +8,8 @@ const links = [
   { to: "/admin/profile", label: "Profile", end: false },
   { to: "/admin/projects", label: "Projects", end: false },
   { to: "/admin/articles", label: "Articles", end: false },
+  { to: "/admin/background", label: "Background", end: false },
+  { to: "/admin/skills", label: "Skills", end: false },
 ];
 
 export default function AdminShell() {

@@ -20,14 +20,19 @@ const manage = [
     title: "Articles",
     text: "Write, edit, publish and archive articles",
   },
+  {
+    to: "/admin/background",
+    title: "Experience and education",
+    text: "Your professional background for the About and CV pages",
+  },
+  {
+    to: "/admin/skills",
+    title: "Skills",
+    text: "Groups of skills for the About and CV pages",
+  },
 ];
 
-const soon = [
-  "Experience, education and skills",
-  "Images and CV upload",
-  "Contact messages",
-  "SEO",
-];
+const soon = ["Images and CV upload", "Contact messages", "SEO"];
 
 export default function AdminHome() {
   const { session, signOut } = useAdminSession();
