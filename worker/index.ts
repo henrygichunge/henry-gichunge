@@ -8,6 +8,7 @@ import cv from "./routes/cv";
 import contact from "./routes/contact";
 import admin from "./routes/admin";
 import content from "./routes/content";
+import { servePage } from "./seo/page";
 import type { AppEnv } from "./types";
 
 const app = new Hono<AppEnv>();
@@ -28,6 +29,12 @@ function errorResponse(status: number, code: string, message: string): Response 
     headers: { "Content-Type": "application/json; charset=UTF-8" },
   });
 }
+
+// Anything under /api that no route above handled is a JSON 404, never a web page.
+app.all("/api/*", () => errorResponse(404, "not_found", "API route not found."));
+
+// Every other address is a page of the website.
+app.get("*", (c) => servePage(c));
 
 app.notFound(() => errorResponse(404, "not_found", "API route not found."));
 

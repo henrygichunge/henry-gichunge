@@ -19,11 +19,15 @@ export interface D1Database {
 
 /**
  * Cloudflare bindings available to the Worker.
- * DB and the secrets are missing when running locally on a phone, so they are optional.
+ * DB, ASSETS and the secrets are missing when running locally on a phone, so they are optional.
  */
 export interface Bindings {
   ENVIRONMENT?: string;
   DB?: D1Database;
+  /** The built website files. Present when deployed. */
+  ASSETS?: { fetch(request: Request): Promise<Response> };
+  /** Optional: the site's real address, for example https://henrygichunge.com (no trailing slash). */
+  SITE_URL?: string;
   /** Secret: the one email address allowed to sign in. */
   ADMIN_EMAIL?: string;
   /** Secret: pbkdf2-sha256$iterations$salt$hash, made with scripts/hash-password.mjs. */

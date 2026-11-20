@@ -27,6 +27,7 @@ const AdminTimelineEdit = lazy(() => import("./pages/admin/AdminTimelineEdit"));
 const AdminSkills = lazy(() => import("./pages/admin/AdminSkills"));
 const AdminCv = lazy(() => import("./pages/admin/AdminCv"));
 const AdminMessages = lazy(() => import("./pages/admin/AdminMessages"));
+const AdminSeo = lazy(() => import("./pages/admin/AdminSeo"));
 
 function Layout() {
   const { pathname } = useLocation();
@@ -88,6 +89,7 @@ export default function App() {
         <Route path="skills" element={<AdminSkills />} />
         <Route path="cv" element={<AdminCv />} />
         <Route path="messages" element={<AdminMessages />} />
+        <Route path="seo" element={<AdminSeo />} />
       </Route>
 
       <Route element={<Layout />}>

@@ -40,9 +40,12 @@ const manage = [
     title: "Messages",
     text: "Read, archive and delete messages from the contact form",
   },
+  {
+    to: "/admin/seo",
+    title: "SEO",
+    text: "Page titles, descriptions and the default share image",
+  },
 ];
-
-const soon = ["SEO"];
 
 export default function AdminHome() {
   const { session, signOut } = useAdminSession();
@@ -83,15 +86,6 @@ export default function AdminHome() {
               </span>
               <ArrowRight size={18} className="text-gold transition-transform group-hover:translate-x-1" />
             </Link>
-          </li>
-        ))}
-        {soon.map((name) => (
-          <li
-            key={name}
-            className="flex items-center justify-between border border-dashed border-line p-5 text-mist"
-          >
-            <span className="font-serif text-xl">{name}</span>
-            <span className="text-[10px] uppercase tracking-widest text-gold-deep">Soon</span>
           </li>
         ))}
       </ul>

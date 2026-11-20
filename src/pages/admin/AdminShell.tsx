@@ -12,6 +12,7 @@ const links = [
   { to: "/admin/skills", label: "Skills", end: false },
   { to: "/admin/cv", label: "CV", end: false },
   { to: "/admin/messages", label: "Messages", end: false },
+  { to: "/admin/seo", label: "SEO", end: false },
 ];
 
 export default function AdminShell() {
