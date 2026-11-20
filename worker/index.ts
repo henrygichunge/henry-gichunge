@@ -4,6 +4,7 @@ import { secureHeaders } from "hono/secure-headers";
 import health from "./routes/health";
 import projects from "./routes/projects";
 import articles from "./routes/articles";
+import cv from "./routes/cv";
 import admin from "./routes/admin";
 import content from "./routes/content";
 import type { AppEnv } from "./types";
@@ -15,6 +16,7 @@ app.use("/api/*", secureHeaders());
 app.route("/api/health", health);
 app.route("/api/projects", projects);
 app.route("/api/articles", articles);
+app.route("/api/cv", cv);
 app.route("/api/admin", admin);
 app.route("/api", content);
 

@@ -8,7 +8,7 @@ const manage = [
   {
     to: "/admin/profile",
     title: "Profile and contact",
-    text: "Biography, intro, mission, contact details and social links",
+    text: "Biography, intro, mission, portrait, contact details and social links",
   },
   {
     to: "/admin/projects",
@@ -30,9 +30,14 @@ const manage = [
     title: "Skills",
     text: "Groups of skills for the About and CV pages",
   },
+  {
+    to: "/admin/cv",
+    title: "CV",
+    text: "Upload or replace the PDF behind the CV page's download button",
+  },
 ];
 
-const soon = ["Images and CV upload", "Contact messages", "SEO"];
+const soon = ["Contact messages", "SEO"];
 
 export default function AdminHome() {
   const { session, signOut } = useAdminSession();

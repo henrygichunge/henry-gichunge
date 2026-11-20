@@ -6,6 +6,7 @@ import SkillGroups from "../components/SkillGroups";
 import { TextSkeleton } from "../components/Skeleton";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useBackground, useSite } from "../hooks/useSiteContent";
+import { useCv } from "../hooks/useCv";
 import { cvContent } from "../data/content";
 import { site } from "../data/site";
 
@@ -14,6 +15,9 @@ export default function CV() {
 
   const { data: siteData } = useSite();
   const { background } = useBackground();
+  const { data: cvData, loading: cvLoading } = useCv();
+
+  const pdfUrl = cvData?.url ?? cvContent.pdfUrl;
 
   return (
     <>
@@ -25,13 +29,14 @@ export default function CV() {
 
       <section className="border-b border-line py-8">
         <Container className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          {cvContent.pdfUrl ? (
+          {pdfUrl ? (
             <a
-              href={cvContent.pdfUrl}
-              download
+              href={pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-gold px-6 py-3 text-sm font-medium tracking-wide text-canvas transition-colors duration-300 hover:bg-ivory"
             >
-              <Download size={16} /> Download CV (PDF)
+              <Download size={16} /> View or download CV (PDF)
             </a>
           ) : (
             <>
@@ -40,9 +45,9 @@ export default function CV() {
                 disabled
                 className="inline-flex cursor-not-allowed items-center justify-center gap-2 border border-line px-6 py-3 text-sm tracking-wide text-mist opacity-60"
               >
-                <Download size={16} /> Download CV (PDF)
+                <Download size={16} /> View or download CV (PDF)
               </button>
-              <p className="text-sm text-mist">The PDF has not been uploaded yet.</p>
+              {!cvLoading && <p className="text-sm text-mist">The PDF has not been uploaded yet.</p>}
             </>
           )}
         </Container>

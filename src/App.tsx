@@ -25,6 +25,7 @@ const AdminArticleEdit = lazy(() => import("./pages/admin/AdminArticleEdit"));
 const AdminBackground = lazy(() => import("./pages/admin/AdminBackground"));
 const AdminTimelineEdit = lazy(() => import("./pages/admin/AdminTimelineEdit"));
 const AdminSkills = lazy(() => import("./pages/admin/AdminSkills"));
+const AdminCv = lazy(() => import("./pages/admin/AdminCv"));
 
 function Layout() {
   const { pathname } = useLocation();
@@ -84,6 +85,7 @@ export default function App() {
         <Route path="background/new" element={<AdminTimelineEdit />} />
         <Route path="background/:id" element={<AdminTimelineEdit />} />
         <Route path="skills" element={<AdminSkills />} />
+        <Route path="cv" element={<AdminCv />} />
       </Route>
 
       <Route element={<Layout />}>
