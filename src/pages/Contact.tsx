@@ -1,13 +1,11 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "../components/ui";
 import PageHeader from "../components/PageHeader";
+import ContactForm from "../components/ContactForm";
 import { TextSkeleton } from "../components/Skeleton";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useSite } from "../hooks/useSiteContent";
 import { contactContent } from "../data/content";
-
-const fieldClass =
-  "mt-2 w-full border border-line bg-surface/40 px-4 py-3 text-ivory placeholder:text-mist/60 focus:border-gold";
 
 export default function Contact() {
   usePageMeta("Contact", "Contact Henry Gichunge about projects, collaboration or education technology.");
@@ -71,38 +69,7 @@ export default function Contact() {
           </div>
 
           <div className="lg:col-span-7">
-            <p className="mb-6 border border-dashed border-gold-deep p-4 text-sm text-mist">
-              The contact form is not connected yet. It will start working when the backend is added.
-            </p>
-
-            <form onSubmit={(e) => e.preventDefault()} aria-label="Contact form">
-              <fieldset disabled className="space-y-5 opacity-60">
-                <div>
-                  <label htmlFor="name" className="text-sm text-ivory/80">
-                    Name
-                  </label>
-                  <input id="name" name="name" type="text" autoComplete="name" className={fieldClass} />
-                </div>
-                <div>
-                  <label htmlFor="email" className="text-sm text-ivory/80">
-                    Email
-                  </label>
-                  <input id="email" name="email" type="email" autoComplete="email" className={fieldClass} />
-                </div>
-                <div>
-                  <label htmlFor="message" className="text-sm text-ivory/80">
-                    Message
-                  </label>
-                  <textarea id="message" name="message" rows={6} className={fieldClass} />
-                </div>
-                <button
-                  type="submit"
-                  className="cursor-not-allowed bg-gold px-8 py-3 text-sm font-medium tracking-wide text-canvas"
-                >
-                  Send message
-                </button>
-              </fieldset>
-            </form>
+            <ContactForm />
           </div>
         </Container>
       </section>

@@ -11,7 +11,8 @@ Never edit a migration that has been applied: add a new numbered file instead.
 | migrations/0001_profile_and_settings.sql | profile, settings, social links | [x] |
 | migrations/0002_projects.sql | projects, focus areas, links | [x] |
 | migrations/0003_articles_and_background.sql | articles, experience/education, skills | [x] |
-| migrations/0004_admin_auth.sql | admin sessions, login attempts | [ ] |
+| migrations/0004_admin_auth.sql | admin sessions, login attempts | [x] |
+| migrations/0005_contact_enquiries.sql | contact form messages | [ ] |
 
 ## Seed (starter content)
 | File | Applied |
@@ -25,11 +26,20 @@ The D1 console input is a single line, so pasted line breaks are lost.
 - Never use `--` comments in these files: one would comment out everything after it.
 - Use `char(10)` for line breaks inside text values.
 
-## Admin login secrets (Cloudflare dashboard, never in this repository)
-Set under Workers & Pages > henry-gichunge > Settings > Variables and Secrets, type "Secret":
-- `ADMIN_EMAIL`: the one email allowed to sign in
-- `ADMIN_PASSWORD_HASH`: made on your phone with `node scripts/hash-password.mjs`
-Never paste the passphrase or the hash into chat, files or Git.
+## Secrets (Cloudflare dashboard, never in this repository)
+Set under Workers & Pages > henry-gichunge > Settings > Variables and Secrets, type "Secret".
+Never paste a secret into chat, files or Git.
+
+| Name | Purpose |
+|------|---------|
+| ADMIN_EMAIL | the one email allowed to sign in |
+| ADMIN_PASSWORD_HASH | made on your phone with `node scripts/hash-password.mjs` |
+| CLOUDINARY_CLOUD_NAME | Cloudinary account name (images and CV) |
+| CLOUDINARY_API_KEY | Cloudinary API key |
+| CLOUDINARY_API_SECRET | Cloudinary API secret |
+| TURNSTILE_SITE_KEY | contact form spam check, public key (optional) |
+| TURNSTILE_SECRET_KEY | contact form spam check, secret key (optional) |
+
 If sign-in fails with a "resource limits" error, regenerate the hash with fewer iterations,
 for example `node scripts/hash-password.mjs 30000`, and update the secret.
 
@@ -38,6 +48,4 @@ Wrangler's local runtime does not run on Android/Termux, so migrations are appli
 in the dashboard. D1's automatic migration history is therefore not recorded: this table is the record.
 
 ## Later
-- Batch 12: media_assets table
-- Batch 13: contact_enquiries table
-- Batch 14: page SEO table
+- Page SEO table (SEO batch)

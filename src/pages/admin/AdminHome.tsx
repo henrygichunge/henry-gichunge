@@ -35,9 +35,14 @@ const manage = [
     title: "CV",
     text: "Upload or replace the PDF behind the CV page's download button",
   },
+  {
+    to: "/admin/messages",
+    title: "Messages",
+    text: "Read, archive and delete messages from the contact form",
+  },
 ];
 
-const soon = ["Contact messages", "SEO"];
+const soon = ["SEO"];
 
 export default function AdminHome() {
   const { session, signOut } = useAdminSession();

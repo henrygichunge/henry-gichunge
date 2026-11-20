@@ -28,10 +28,13 @@ export interface Bindings {
   ADMIN_EMAIL?: string;
   /** Secret: pbkdf2-sha256$iterations$salt$hash, made with scripts/hash-password.mjs. */
   ADMIN_PASSWORD_HASH?: string;
-  /** Secrets for image uploads: from the Cloudinary console, set in the Cloudflare dashboard. */
+  /** Secrets for image and CV uploads: from the Cloudinary console, set in the Cloudflare dashboard. */
   CLOUDINARY_CLOUD_NAME?: string;
   CLOUDINARY_API_KEY?: string;
   CLOUDINARY_API_SECRET?: string;
+  /** Secrets for the contact form spam check: from the Cloudflare Turnstile widget. Optional. */
+  TURNSTILE_SITE_KEY?: string;
+  TURNSTILE_SECRET_KEY?: string;
 }
 
 export type AppEnv = {
