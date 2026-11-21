@@ -59,11 +59,15 @@ export function cleanText(value: unknown, rules: TextRules): string {
   return result;
 }
 
-/** An empty string, an https/http address, or (when allowed) a site path such as /images/a.png. */
-export function optionalWebAddress(value: unknown, label: string, allowSitePath: boolean): string {
+/**
+ * An empty string or a web address (https or http).
+ * With `isImage` set, the address must be a site path such as /images/a.png, or a picture
+ * uploaded to Cloudinary: images from any other website are refused.
+ */
+export function optionalWebAddress(value: unknown, label: string, isImage: boolean): string {
   const text = cleanText(value, { label, max: 500 });
   if (text === "") return "";
-  if (allowSitePath && text.startsWith("/") && !text.startsWith("//")) return text;
+  if (isImage && text.startsWith("/") && !text.startsWith("//")) return text;
 
   let url: URL;
   try {
@@ -73,6 +77,9 @@ export function optionalWebAddress(value: unknown, label: string, allowSitePath:
   }
   if (url.protocol !== "https:" && url.protocol !== "http:") {
     throw badRequest(`${label} must be a full web address starting with https://.`);
+  }
+  if (isImage && url.origin !== "https://res.cloudinary.com") {
+    throw badRequest(`${label} must be a picture uploaded with the Upload image button.`);
   }
   return url.toString();
 }

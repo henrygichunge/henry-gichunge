@@ -11,6 +11,7 @@ import {
   type PageMeta,
   type SitemapEntry,
 } from "./head";
+import { contentSecurityPolicy, inlineScriptHashes, securityHeaders } from "./security";
 
 interface SiteFacts {
   displayName: string;
@@ -290,7 +291,7 @@ async function sitemapEntries(db: D1Database | undefined): Promise<SitemapEntry[
 }
 
 /**
- * Serves every page request: the built website with correct SEO tags for that address.
+ * Serves every page request: the built website with correct SEO tags and security headers.
  * If anything fails, the page is served exactly as it was built.
  */
 export async function servePage(c: Context<AppEnv>): Promise<Response> {
@@ -305,14 +306,22 @@ export async function servePage(c: Context<AppEnv>): Promise<Response> {
 
     if (path === "/robots.txt") {
       return new Response(buildRobots(base, canonicalHost), {
-        headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" },
+        headers: {
+          "Content-Type": "text/plain; charset=utf-8",
+          "Cache-Control": "public, max-age=3600",
+          "X-Content-Type-Options": "nosniff",
+        },
       });
     }
 
     if (path === "/sitemap.xml") {
       if (!canonicalHost) return new Response("Not found", { status: 404 });
       return new Response(buildSitemap(base, await sitemapEntries(db)), {
-        headers: { "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
+        headers: {
+          "Content-Type": "application/xml; charset=utf-8",
+          "Cache-Control": "public, max-age=3600",
+          "X-Content-Type-Options": "nosniff",
+        },
       });
     }
 
@@ -329,12 +338,11 @@ export async function servePage(c: Context<AppEnv>): Promise<Response> {
     const html = applyHead(await shellResponse.text(), buildHead(resolved.meta, base));
     if (html === null) return assets.fetch(c.req.raw);
 
+    const policy = contentSecurityPolicy(await inlineScriptHashes(html));
     const headers = new Headers({
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "public, max-age=0, must-revalidate",
-      "X-Content-Type-Options": "nosniff",
-      "Referrer-Policy": "strict-origin-when-cross-origin",
-      "X-Frame-Options": "DENY",
+      ...securityHeaders(c.env?.CSP_MODE, policy),
     });
     if (resolved.meta.noindex) headers.set("X-Robots-Tag", "noindex, nofollow");
 

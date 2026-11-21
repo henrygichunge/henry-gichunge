@@ -28,6 +28,8 @@ export interface Bindings {
   ASSETS?: { fetch(request: Request): Promise<Response> };
   /** Optional: the site's real address, for example https://henrygichunge.com (no trailing slash). */
   SITE_URL?: string;
+  /** Optional emergency switch for the content-security policy: "off" or "report-only". */
+  CSP_MODE?: string;
   /** Secret: the one email address allowed to sign in. */
   ADMIN_EMAIL?: string;
   /** Secret: pbkdf2-sha256$iterations$salt$hash, made with scripts/hash-password.mjs. */
